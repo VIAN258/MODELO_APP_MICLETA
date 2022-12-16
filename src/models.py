@@ -8,43 +8,44 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Users(Base):
+class User(Base):
     __tablename__ = 'user'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-class Planets(Base):
-    __tablename__ = 'planets'
+class Planet(Base):
+    __tablename__ = 'planet'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     planet_name = Column(String(250))
    
 
-class Ships(Base):
-    __tablename__ = 'ships'
+class Ship(Base):
+    __tablename__ = 'ship'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     ships_name = Column(String(250))
    
 
-class Characters(Base):
-    __tablename__ = 'characters'
+class Character(Base):
+    __tablename__ = 'character'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     characters_name = Column(String(250))
   
 
-class Favorites(Base):
-    __tablename__ = 'favorites'
+class Favorite(Base):
+    __tablename__ = 'favorite'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    users_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user = relationship(User)
     character_id = Column(Integer, ForeignKey('character.id'), nullable=False)
     planet_id = Column(Integer, ForeignKey('planet.id'), nullable=False)
     ships_id = Column(Integer, ForeignKey('ships.id'), nullable=False)
