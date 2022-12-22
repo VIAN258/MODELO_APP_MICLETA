@@ -52,7 +52,9 @@ class Favorite(Base):
     planet = relationship(Planet)
     ship_id = Column(Integer, ForeignKey('ship.id'), nullable=False)
     ship = relationship(Ship)
-
+    type_id = Column(Integer, ForeignKey('type.id'), nullable=False)
+    
+ 
 class Type(Base):
     __tablename__ = 'type'
     # Here we define columns for the table address.
@@ -60,7 +62,9 @@ class Type(Base):
     id = Column(Integer, primary_key=True)
     character_id = Column(Integer, ForeignKey('character.id'))
     planet_id = Column(Integer, ForeignKey('planet.id'))
-    ships_id = Column(Integer, ForeignKey('ships.id'))
+    ship_id = Column(Integer, ForeignKey('ship.id'))
+    
+    
     
    
 
