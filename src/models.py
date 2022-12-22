@@ -47,8 +47,11 @@ class Favorite(Base):
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
     character_id = Column(Integer, ForeignKey('character.id'), nullable=False)
+    character = relationship(Character)
     planet_id = Column(Integer, ForeignKey('planet.id'), nullable=False)
-    ships_id = Column(Integer, ForeignKey('ships.id'), nullable=False)
+    planet = relationship(Planet)
+    ship_id = Column(Integer, ForeignKey('ship.id'), nullable=False)
+    ship = relationship(Ship)
 
 class Type(Base):
     __tablename__ = 'type'
