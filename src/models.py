@@ -53,7 +53,6 @@ class OrderItem(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
-    order = relationship(Order)
     wsitem_id = Column(Integer, ForeignKey('wsitem.id'), nullable=False)
     wsitem = relationship(WsItem)
   
@@ -77,11 +76,11 @@ class User_Item(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     price = Column(String(250), nullable=False)
-    user_ws.id = Column(Integer, ForeignKey('user_ws.id'), nullable=False)
-    user_ws = relationship(User_Ws)
+    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
+    userws = relationship(UserWs)
     description = Column(String(250), nullable=False)
-    ws_item.id = Column(Integer, ForeignKey('ws_item.id'), nullable=False)
-    ws_item = relationship(Ws_Item)
+    wsitem_id = Column(Integer, ForeignKey('wsitem.id'), nullable=False)
+    wsitem = relationship(WsItem)
 
 
 class Payment_Method(Base):
@@ -89,10 +88,10 @@ class Payment_Method(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    user_ws.id = Column(Integer, ForeignKey('user_ws.id'), nullable=False)
-    user_ws = relationship(User_Ws)
+    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
+    userws = relationship(UserWs)
     cash = Column(String(250), nullable=False)
-    order.id = Column(Integer, ForeignKey('order.id'), nullable=False)
+    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
     order = relationship(Order) 
        
 
