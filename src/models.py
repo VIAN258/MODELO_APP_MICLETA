@@ -8,8 +8,8 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class UserWs(Base):
-    __tablename__ = 'userws'
+class User(Base):
+    __tablename__ = 'user'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
@@ -18,33 +18,33 @@ class UserWs(Base):
     email = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
     address = Column(String(250), nullable=False)
-    bikerws = Column(String(250), nullable=False)
+    type = Column(String(250), nullable=False)
 
-class WsItem(Base):
-    __tablename__ = 'wsitem'
+class Inventory(Base):
+    __tablename__ = 'inventory'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     category = Column(String(250), nullable=False)
     product = Column(String(250), nullable=False)
-    url_picture = Column(String(250), nullable=False)
+    picture = Column(String(250), nullable=False)
     product = Column(String(250), nullable=False)
     description = Column(String(250), nullable=False)
     price = Column(String(250), nullable=False)
-    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
-    userws = relationship(UserWs)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user = relationship(User)
    
 
-class Open_Close_Ws(Base):
-    __tablename__ = 'open_close_ws'
+class Scheduling(Base):
+    __tablename__ = 'scheduling'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     start_hour = Column(String(250), nullable=False)
     end_hour = Column(String(250), nullable=False)
     day = Column(String(250), nullable=False)
-    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
-    userws = relationship(UserWs)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user = relationship(User)
    
 
 class OrderItem(Base):
@@ -53,8 +53,8 @@ class OrderItem(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
-    wsitem_id = Column(Integer, ForeignKey('wsitem.id'), nullable=False)
-    wsitem = relationship(WsItem)
+    inventory_id = Column(Integer, ForeignKey('inventory.id'), nullable=False)
+    inventory = relationship(Inventory)
   
 
 class Order(Base):
@@ -62,37 +62,37 @@ class Order(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
-    userws = relationship(UserWs)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user = relationship(User)
     total_price = Column(String(250), nullable=False)
-    transaction = Column(String(250), nullable=False)
     status = Column(String(250), nullable=False)
+    paymentmethod_id = Column(Integer, ForeignKey('paymentmethod.id'), nullable=False)
     
     
  
-class User_Item(Base):
+class Shopingcar(Base):
     __tablename__ = 'user_item'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    price = Column(String(250), nullable=False)
-    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
-    userws = relationship(UserWs)
-    description = Column(String(250), nullable=False)
-    wsitem_id = Column(Integer, ForeignKey('wsitem.id'), nullable=False)
-    wsitem = relationship(WsItem)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user = relationship(User)
+    status = Column(String(250), nullable=False)
+    inventory_id = Column(Integer, ForeignKey('inventory.id'), nullable=False)
+    inventory = relationship(Inventory)
 
 
-class Payment_Method(Base):
-    __tablename__ = 'payment_method'
+class PaymentMethod(Base):
+    __tablename__ = 'paymentmethod'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    userws_id = Column(Integer, ForeignKey('userws.id'), nullable=False)
-    userws = relationship(UserWs)
-    cash = Column(String(250), nullable=False)
-    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
-    order = relationship(Order) 
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    user = relationship(User)
+    payment_type = Column(String(250), nullable=False)
+    transaction = Column(String(250), nullable=False)
+    amount_transaction = Column(String(250), nullable=False)
+   
        
 
     def to_dict(self):
