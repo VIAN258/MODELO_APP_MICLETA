@@ -10,8 +10,6 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = 'user'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     last_name = Column(String(250), nullable=False)
@@ -22,8 +20,6 @@ class User(Base):
 
 class Inventory(Base):
     __tablename__ = 'inventory'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     category = Column(String(250), nullable=False)
     product = Column(String(250), nullable=False)
@@ -37,8 +33,6 @@ class Inventory(Base):
 
 class Scheduling(Base):
     __tablename__ = 'scheduling'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     start_hour = Column(String(250), nullable=False)
     end_hour = Column(String(250), nullable=False)
@@ -46,34 +40,27 @@ class Scheduling(Base):
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
    
-
-class OrderItem(Base):
-    __tablename__ = 'orderitem'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
-    inventory_id = Column(Integer, ForeignKey('inventory.id'), nullable=False)
-    inventory = relationship(Inventory)
-  
-
 class Order(Base):
     __tablename__ = 'order'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
     total_price = Column(String(250), nullable=False)
     status = Column(String(250), nullable=False)
     paymentmethod_id = Column(Integer, ForeignKey('paymentmethod.id'), nullable=False)
-    
-    
+
+
+class OrderItem(Base):
+    __tablename__ = 'orderitem'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('order.id'), nullable=False)
+    order = relationship(Order)
+    inventory_id = Column(Integer, ForeignKey('inventory.id'), nullable=False)
+    inventory = relationship(Inventory)
+  
  
-class Shopingcar(Base):
-    __tablename__ = 'user_item'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Shoppingcar(Base):
+    __tablename__ = 'shoppingcar'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
@@ -84,8 +71,6 @@ class Shopingcar(Base):
 
 class PaymentMethod(Base):
     __tablename__ = 'paymentmethod'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship(User)
@@ -93,10 +78,6 @@ class PaymentMethod(Base):
     transaction = Column(String(250), nullable=False)
     amount_transaction = Column(String(250), nullable=False)
    
-       
-
-    def to_dict(self):
-        return {}
 
 ## Draw from SQLAlchemy base
 render_er(Base, 'diagram.png')
